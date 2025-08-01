@@ -6,6 +6,7 @@ function agrifoodz_enqueue_scripts()
 {
     // استایل اصلی
     wp_enqueue_style('agrifoodz-style', get_stylesheet_uri());
+    wp_style_add_data('agrifoodz-style', 'rtl', 'replace');
 
     // Styles
     wp_enqueue_style('main-style', AGRIFOODZ_CSS . '/style.css', [], AGRIFOODZ_VERSION);
@@ -44,7 +45,7 @@ function agrifoodz_enqueue_scripts()
         wp_enqueue_style('agrifoodz-register', AGRIFOODZ_CSS . '/login-form.css', [], AGRIFOODZ_VERSION);
     }
 
-    if (in_array($page_slug, ['supplier-dashboard', 'buyer-dashboard'])) {
+    if (in_array($page_slug, ['supplier-dashboard', 'buyer-dashboard', 'my-account', 'dashboard'])) {
         wp_enqueue_style('agrifoodz-dashboards', AGRIFOODZ_CSS . '/account.css', [], AGRIFOODZ_VERSION);
     }
 
@@ -98,7 +99,12 @@ function agrifoodz_enqueue_scripts()
 
     // Category Selector Script
     wp_enqueue_script(
-        'agrifoodz-category-selector', AGRIFOODZ_JS  . '/category-selector.js', array('jquery'), '1.0.0', true);
+        'agrifoodz-category-selector',
+        AGRIFOODZ_JS  . '/category-selector.js',
+        array('jquery'),
+        '1.0.0',
+        true
+    );
 
     // 🟩 Localize it to pass ajax_url
     wp_localize_script('agrifoodz-category-selector', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
@@ -112,5 +118,21 @@ function agrifoodz_enqueue_scripts()
 
     // Shared account JS
     wp_enqueue_script('agrifoodz-account', AGRIFOODZ_JS . '/account.js', ['jquery'], AGRIFOODZ_VERSION, true);
+
+    if (is_singular() && comments_open() && get_option('thread_comments')) {
+        wp_enqueue_script('comment-reply');
+    }
+
+    $current_path = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+    if ($current_path === '/agrifoodz/dashboard/settings/store') {
+
+        wp_enqueue_script('user-image-upload', AGRIFOODZ_JS . '/user-image-upload.js', array('jquery'), null, true);
+
+        // ارسال اطلاعات PHP به جاوااسکریپت
+        wp_localize_script('user-image-upload', 'userImageData', array(
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'userId'  => get_current_user_id(),
+        ));
+    }
 }
 add_action('wp_enqueue_scripts', 'agrifoodz_enqueue_scripts');

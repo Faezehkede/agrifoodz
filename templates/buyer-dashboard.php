@@ -18,6 +18,7 @@
 <body <?php body_class(); ?>>
 
   <div id="dashboard-sidebar">
+
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="logo">Agrifoodz</div>
@@ -33,7 +34,7 @@
       </div>
       <nav class="nav-menu">
         <ul class="sidebar-nav">
-          <li><a href="#" class="tab-link active" data-tab="myAgrifoodz">My Rexcer</a></li>
+          <li><a href="#" class="tab-link active" data-tab="myAgrifoodz">My Agrifoodz</a></li>
           <li><a href="#" class="tab-link" data-tab="newRFQ">New RFQ</a></li>
           <li><a href="#" class="tab-link" data-tab="messages">Messages</a></li>
           <li><a href="#" class="tab-link" data-tab="suggestedSuppliers">Suggested Suppliers</a></li>
@@ -314,8 +315,8 @@
 
       <div class="tab-panel" id="feedback">
         <div class="feedback-container">
-          <h2>How would you describe your experience with Rexcer?</h2>
-          <p class="description">Your feedback is used to improve Rexcer</p>
+          <h2>How would you describe your experience with Agrifoodz?</h2>
+          <p class="description">Your feedback is used to improve Agrifoodz</p>
 
           <div class="emoji-list" id="emojiList">
             <!-- Emojis will be dynamically inserted here -->
@@ -334,6 +335,7 @@
     <button class="floating-support-btn">
       <i class="icon-headset"></i>
     </button>
+    
   </div>
 
 <?php wp_footer(); ?>

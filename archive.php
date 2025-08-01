@@ -147,7 +147,7 @@
 
         <div class="col-3">
 
-            <aside class="sidebar-area">
+            <aside class="sidebar-area archive-php">
                 <?php get_sidebar(); ?>
             </aside>
 

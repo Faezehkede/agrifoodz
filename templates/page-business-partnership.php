@@ -60,8 +60,8 @@ get_header();
         <label for="role">Your Role</label>
         <select id="role" name="role" required>
           <option value="">Select One</option>
-          <option value="buyer">Buyer</option>
-          <option value="supplier">Supplier</option>
+          <option value="seller">Buyer</option>
+          <option value="seller">Supplier</option>
           <option value="broker">Broker / Trader</option>
           <option value="other">Other</option>
         </select>

@@ -1,13 +1,42 @@
 <?php
 function agrifoodz_setup() {
+    load_theme_textdomain('agrifoodz', get_template_directory() . '/languages');
+    // Add default posts and comments RSS feed links to head.
+	add_theme_support( 'automatic-feed-links' );
+
     add_theme_support('title-tag');
+
     add_theme_support('post-thumbnails');
-    add_theme_support('html5', ['search-form', 'comment-form', 'comment-list', 'gallery', 'caption']);
+
+    /*
+		* Switch default core markup for search form, comment form, and comments
+		* to output valid HTML5.
+		*/
+	add_theme_support(
+		'html5',
+		array(
+			'search-form',
+			'comment-form',
+			'comment-list',
+			'gallery',
+			'caption',
+			'style',
+			'script',
+		)
+	);
+
     add_theme_support('custom-logo');
+
     register_nav_menus([
         'primary' => __('Primary Menu', 'agrifoodz-theme'),
         'footer' => __('Footer Menu', 'agrifoodz-theme')
     ]);
+
+    add_theme_support('post-thumbnails');
+    register_nav_menus(['primary' => __('Primary Menu', 'agrifoodz')]);
+    
+    add_theme_support('dokan');
+
 }
 add_action('after_setup_theme', 'agrifoodz_setup');
 

@@ -277,7 +277,7 @@
 
                                     <div id="faq-suppliers" class="active">
                                         <div class="faq-item">
-                                            <div class="faq-question">How can I post products on Rexcer?</div>
+                                            <div class="faq-question">How can I post products on Agrifoodz?</div>
                                             <div class="faq-answer">Go to your dashboard, click "Add Product", and fill in the required details.</div>
                                         </div>
                                         <div class="faq-item">
@@ -289,7 +289,7 @@
                                             <div class="faq-answer">Go to your dashboard, click "Add Product", and fill in the required details.</div>
                                         </div>
                                         <div class="faq-item">
-                                            <div class="faq-question">How can I post products on Rexcer?</div>
+                                            <div class="faq-question">How can I post products on Agrifoodz?</div>
                                             <div class="faq-answer">Go to your dashboard, click "Add Product", and fill in the required details.</div>
                                         </div>
                                         <div class="faq-item">
@@ -301,7 +301,7 @@
                                             <div class="faq-answer">Go to your dashboard, click "Add Product", and fill in the required details.</div>
                                         </div>
                                         <div class="faq-item">
-                                            <div class="faq-question">How can I post products on Rexcer?</div>
+                                            <div class="faq-question">How can I post products on Agrifoodz?</div>
                                             <div class="faq-answer">Go to your dashboard, click "Add Product", and fill in the required details.</div>
                                         </div>
                                         <div class="faq-item">
@@ -872,8 +872,8 @@
             <div class="tab-panel" id="feedback">
 
                 <div class="feedback-container">
-                    <h2>How would you describe your experience with Rexcer?</h2>
-                    <p class="description">Your feedback is used to improve Rexcer</p>
+                    <h2>How would you describe your experience with Agrifoodz?</h2>
+                    <p class="description">Your feedback is used to improve Agrifoodz</p>
 
                     <div class="emoji-list" id="emojiList">
                         <!-- Emojis will be dynamically inserted here -->

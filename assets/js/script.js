@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // jQuery for search box and countdown
-$(function () {
+jQuery(document).ready(function($) {
   // Search box
   $('.search-box button').on('click', function () {
     const query = $(this).siblings('input').val().trim();

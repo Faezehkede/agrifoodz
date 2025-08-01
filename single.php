@@ -49,8 +49,8 @@
                                     <?php comments_number('No Comments', '1 Comment', '% Comments'); ?>
                                 </span>
                             </div>
+            <div class="sidebar-area single-php"><?php get_sidebar(); ?></div>
             
-            <?php get_sidebar(); ?>
             </div>
         </div>
 

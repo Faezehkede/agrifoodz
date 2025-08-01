@@ -16,11 +16,11 @@ function validateForm() {
 $(document).ready(function () {
   $('input, select').on('input change', validateForm);
 
-  $('#accountForm').submit(function (e) {
-    e.preventDefault();
-    alert("Account Created!");
-    // You can redirect or save data here
-  });
+  // $('#accountForm').submit(function (e) {
+  //   e.preventDefault();
+  //   alert("Account Created!");
+  //   // You can redirect or save data here
+  // });
 });
 
 $(document).ready(function () {

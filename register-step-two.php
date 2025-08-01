@@ -44,8 +44,8 @@ get_header();
                 <label>Trade role<span style="color: red">*</span></label>
                 <small>You can change your role later.</small>
                 <div class="radio-group">
-                    <label><input type="radio" name="role" value="supplier" id="supplier"> Supplier</label>
-                    <label><input type="radio" name="role" value="buyer" id="buyer"> Buyer</label>
+                    <label><input type="radio" name="role" value="seller" id="supplier"> Supplier</label>
+                    <label><input type="radio" name="role" value="seller" id="buyer"> Buyer</label>
                 </div>
             </div>
 
