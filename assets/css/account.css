@@ -2214,3 +2214,6 @@ header.dokan-dashboard-header {
         margin-bottom: 8px
     }
 }
+.woocommerce-account header, .woocommerce-account footer, .dokan-dashboard header, .dokan-dashboard footer {
+    display: none;
+}

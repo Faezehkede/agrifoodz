@@ -262,7 +262,7 @@
 
   .header .header-btn {
     display: none;
-}
+  }
 
 }
 
@@ -373,9 +373,8 @@
   display: flex;
 }
 
-.social-link svg {
+.social-link img {
   width: 25px;
-  height: 25px;
 }
 
 .social-link .x {
@@ -447,7 +446,11 @@
 
   .footer-container .row {
     flex-wrap: wrap;
-}
+  }
+
+  .footer-container .footer-bottom .row {
+    align-items: center;
+  }
 
   .footer-column {
     width: 40%;
@@ -477,4 +480,3 @@
   }
 
 }
-

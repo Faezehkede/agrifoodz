@@ -17,7 +17,11 @@
  */
 
 defined('ABSPATH') || exit;
+
+echo do_shortcode('[smart_auth_popup_trigger reload="http://localhost/agrifoodz/my-account/" auto_show="true"]');
 ?>
+
+
 
 <div id="dashboard-sidebar">
 	<?php

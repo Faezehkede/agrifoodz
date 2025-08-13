@@ -711,21 +711,52 @@
 
   </div>
 </section>
+<?php
+$hero = get_field('ads', 'option');
 
-<section class="ads-banner">
-  <div class="container">
-    <div class="row ads-banner-img">
-      <img src="<?php echo AGRIFOODZ_ASSETS; ?>/images/banners-tk.jpg" alt="Ads Banner Image">
-      <img src="<?php echo AGRIFOODZ_ASSETS; ?>/images/bcm-banner.jpg" alt="Ads Banner Image">
+if ($hero): ?>
+  <section class="ads-banner">
+    <div class="container">
+      <div class="row ads-banner-img">
+
+        <img src="<?php echo esc_url($hero['ads-1']); ?>" alt="<?php echo esc_attr($hero['ads-1']); ?>" />
+        <img src="<?php echo esc_url($hero['ads-2']); ?>" alt="<?php echo esc_attr($hero['ads-2']); ?>" />
+
+        <!-- <img src="<?php echo AGRIFOODZ_ASSETS; ?>/images/banners-tk.jpg" alt="Ads Banner Image">
+      <img src="<?php echo AGRIFOODZ_ASSETS; ?>/images/bcm-banner.jpg" alt="Ads Banner Image"> -->
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+<?php endif; ?>
 
 <section class="vip-supplier">
   <div class="container">
     <h2 class="section-title">VIP Supplier</h2>
     <div class="swiper vip-supplier-carousel">
       <div class="swiper-wrapper">
+
+
+        <?php
+        $users = get_field('vip_supplier', 'option');
+
+        if ($users):
+
+        ?>
+          <div class="swiper-slide">
+            <?php foreach ($users as $user):
+              $vendor = dokan()->vendor->get($user["ID"]);
+              //var_dump($user["ID"]);
+            ?>
+
+              <a href="<?php echo esc_url($vendor->get_shop_url()); ?>" class="user-item">
+
+                <img src="<?php echo $vendor->get_avatar(); ?>" alt="User Image">
+                <h3><?php echo esc_html($vendor->get_shop_name()); ?></h3>
+              </a>
+
+            <?php endforeach; ?>
+          </div>
+        <?php endif; ?>
 
         <div class="swiper-slide">
 
@@ -735,62 +766,8 @@
           </div>
 
         </div>
-        <div class="swiper-slide">
 
-          <div class="user-item">
-            <img src="<?php echo AGRIFOODZ_ASSETS; ?>/images/user-img4.webp" alt="User Image">
-            <h3>Liam Hardly</h3>
-          </div>
 
-        </div>
-        <div class="swiper-slide">
-
-          <div class="user-item">
-            <img src="<?php echo AGRIFOODZ_ASSETS; ?>/images/user-img2.webp" alt="User Image">
-            <h3>James Carly</h3>
-          </div>
-
-        </div>
-        <div class="swiper-slide">
-
-          <div class="user-item">
-            <img src="<?php echo AGRIFOODZ_ASSETS; ?>/images/user-img3.webp" alt="User Image">
-            <h3>Sara Oberian</h3>
-          </div>
-
-        </div>
-        <div class="swiper-slide">
-
-          <div class="user-item">
-            <img src="<?php echo AGRIFOODZ_ASSETS; ?>/images/user-img4.webp" alt="User Image">
-            <h3>Fred Marly</h3>
-          </div>
-
-        </div>
-        <div class="swiper-slide">
-
-          <div class="user-item">
-            <img src="<?php echo AGRIFOODZ_ASSETS; ?>/images/user-img1.webp" alt="User Image">
-            <h3>Ali Rasoli</h3>
-          </div>
-
-        </div>
-        <div class="swiper-slide">
-
-          <div class="user-item">
-            <img src="<?php echo AGRIFOODZ_ASSETS; ?>/images/user-img2.webp" alt="User Image">
-            <h3>Maryam Marly</h3>
-          </div>
-
-        </div>
-        <div class="swiper-slide">
-
-          <div class="user-item">
-            <img src="<?php echo AGRIFOODZ_ASSETS; ?>/images/user-img4.webp" alt="User Image">
-            <h3>James Carly</h3>
-          </div>
-
-        </div>
 
       </div>
     </div>
@@ -817,73 +794,103 @@
       </a>
     </div>
 
-    <div class="product-grid">
+    
 
-      <?php
-      $args = array(
-        'post_type'      => 'product',
-        'posts_per_page' => 8,
-        'orderby'        => 'date',
-        'order'          => 'DESC',
-      );
+      <div class="product-grid">
+        <?php
+        // Get ACF Group values
+        $explore_settings = get_field('explore_our_products', 'option');
 
-      $query = new WP_Query($args);
+        // Defaults if empty
+        $orderby = !empty($explore_settings['product_orderby']) ? $explore_settings['product_orderby'] : 'date';
+        $order   = !empty($explore_settings['product_order']) ? $explore_settings['product_order'] : 'DESC';
+        $perpage = !empty($explore_settings['posts_per_page']) ? $explore_settings['posts_per_page'] : 10;
 
-      if ($query->have_posts()) :
-        while ($query->have_posts()) : $query->the_post();
+        // Query args
+        $args = array(
+          'post_type'      => 'product',
+          'posts_per_page' => $perpage,
+          'orderby'        => $orderby,
+          'order'          => $order,
+        );
 
-          $product = wc_get_product(get_the_ID());
-          if (!$product) continue;
-      ?>
+        // WooCommerce specific ordering
+        if ($orderby === 'price') {
+          $args['meta_key'] = '_price';
+          $args['orderby']  = 'meta_value_num';
+        } elseif ($orderby === 'price-desc') {
+          $args['meta_key'] = '_price';
+          $args['orderby']  = 'meta_value_num';
+          $args['order']    = 'DESC';
+        } elseif ($orderby === 'popularity') {
+          $args['meta_key'] = 'total_sales';
+          $args['orderby']  = 'meta_value_num';
+        } elseif ($orderby === 'rating') {
+          $args['meta_key'] = '_wc_average_rating';
+          $args['orderby']  = 'meta_value_num';
+          $args['order']    = 'DESC';
+        }
 
-          <div class="product-card">
-            <a href="<?php the_permalink(); ?>">
+        // Run query
+        $query = new WP_Query($args);
 
-              <div class="product-top">
-                <?php
-                $categories = wc_get_product_category_list($product->get_id());
-                if ($categories) {
-                  echo '<span class="badge category">' . strip_tags($categories) . '</span>';
-                }
+        if ($query->have_posts()) :
+          while ($query->have_posts()) : $query->the_post();
 
-                if ($product->is_on_sale()) {
-                  $regular_price = $product->get_regular_price();
-                  $sale_price = $product->get_sale_price();
-                  if ($regular_price > 0) {
-                    $discount = round((($regular_price - $sale_price) / $regular_price) * 100);
-                    echo '<span class="badge discount">-' . $discount . '%</span>';
+            $product = wc_get_product(get_the_ID());
+            if (!$product) continue;
+        ?>
+            <div class="product-card">
+              <a href="<?php the_permalink(); ?>">
+
+                <div class="product-top">
+                  <?php
+                  $categories = strip_tags(wc_get_product_category_list($product->get_id()));
+                  if ($categories) {
+                    echo '<span class="badge category">' . esc_html($categories) . '</span>';
                   }
-                }
-                ?>
-              </div>
 
-              <div class="product-image">
-                <?php echo $product->get_image(); ?>
-              </div>
+                  if ($product->is_on_sale()) {
+                    $regular_price = (float) $product->get_regular_price();
+                    $sale_price    = (float) $product->get_sale_price();
+                    if ($regular_price > 0) {
+                      $discount = round((($regular_price - $sale_price) / $regular_price) * 100);
+                      echo '<span class="badge discount">-' . esc_html($discount) . '%</span>';
+                    }
+                  }
+                  ?>
+                </div>
 
-              <div class="product-rating">
-                <?php
-                $average = $product->get_average_rating();
-                echo '<span class="stars">' . wc_get_rating_html($average) . '</span>';
-                echo '<span class="rating">(' . number_format($average, 1) . ')</span>';
-                ?>
-              </div>
+                <div class="product-image">
+                  <?php echo $product->get_image(); ?>
+                </div>
 
-              <h3 class="product-title"><?php the_title(); ?></h3>
-              <p class="available_quantity">Available Quantity: <?php the_field('available_quantity'); ?></p>
+                <div class="product-rating">
+                  <?php
+                  $average = (float) $product->get_average_rating();
+                  echo '<span class="stars">' . wc_get_rating_html($average) . '</span>';
+                  echo '<span class="rating">(' . number_format($average, 1) . ')</span>';
+                  ?>
+                </div>
 
-            </a>
-          </div>
+                <h3 class="product-title"><?php the_title(); ?></h3>
+                <p class="available_quantity">
+                  Available Quantity: <?php the_field('available_quantity'); ?>
+                </p>
 
-      <?php
-        endwhile;
-        wp_reset_postdata();
-      else :
-        echo '<p>No products found.</p>';
-      endif;
-      ?>
+              </a>
+            </div>
+        <?php
+          endwhile;
+          wp_reset_postdata();
+        else :
+          echo '<p>No products found.</p>';
+        endif;
+        ?>
+      </div>
 
-    </div>
+
+    
 
   </div>
 </section>
@@ -1132,7 +1139,7 @@
                 $event_note = get_field('event-note');
             ?>
                 <div class="swiper-slide">
-                  <div class="event-item">
+                  <a class="event-item" href="<?php the_permalink(); ?>">
                     <div class="event-img">
                       <img src="<?php echo esc_url($event_img); ?>" alt="<?php the_title_attribute(); ?>">
                     </div>
@@ -1142,7 +1149,7 @@
                       <p class="event-location"><strong>Location:</strong> <?php echo esc_html($event_location); ?></p>
                       <p class="event-note"><?php echo esc_html($event_note); ?></p>
                     </div>
-                  </div>
+                  </a>
                 </div>
             <?php
               endwhile;

@@ -19,6 +19,7 @@ require_once AGRIFOODZ_INC . '/form-handler.php';
 // require_once AGRIFOODZ_INC . '/widgets.php';
 require_once AGRIFOODZ_INC . '/template-tags.php';
 require_once AGRIFOODZ_INC . '/email-login-handler.php';
+require_once AGRIFOODZ_INC . '/request-function.php';
 /**
  * Load WooCommerce compatibility file.
  */
@@ -64,3 +65,10 @@ function agrifoodz_dequeue_home_assets() {
 
     }
 }
+
+
+function allow_svg_upload($mimes) {
+    $mimes['svg'] = 'image/svg+xml';
+    return $mimes;
+}
+add_filter('upload_mimes', 'allow_svg_upload');

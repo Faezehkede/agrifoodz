@@ -75,35 +75,5 @@ function ajax_live_search() {
 add_action('wp_ajax_ajax_search', 'ajax_live_search');
 add_action('wp_ajax_nopriv_ajax_search', 'ajax_live_search');
 
-// Custom Post Type
-function register_request_post_type() {
-    register_post_type('request', array(
-        'labels' => array(
-            'name' => __('Requests'),
-            'singular_name' => __('Request'),
-        ),
-        'public' => false,
-        'has_archive' => false,
-        'show_ui' => true,
-        'menu_icon' => 'dashicons-feedback',
-        'supports' => ['title'],
-    ));
-}
-add_action('init', 'register_request_post_type');
-
-// Custom Taxonomy for Categories
-function register_request_category_taxonomy() {
-    register_taxonomy('request_category', 'request', array(
-        'labels' => array(
-            'name' => 'Request Categories',
-            'singular_name' => 'Request Category',
-        ),
-        'hierarchical' => true,
-        'show_ui' => true,
-        'show_admin_column' => true,
-        'rewrite' => array('slug' => 'request-category'),
-    ));
-}
-add_action('init', 'register_request_category_taxonomy');
 
 
